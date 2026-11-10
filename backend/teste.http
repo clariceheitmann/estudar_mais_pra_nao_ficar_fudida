@@ -1,0 +1,109 @@
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}
+
+### Cadastrar funcionário 
+POST {{baseUrl}}/funcionario
+Content-Type: application/json
+
+{
+    "nome": "Oliver",
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Realizar login
+# @name loginReq
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Cadastrar fornecedor 
+POST {{baseUrl}}/fornecedor 
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Oliver",
+    "cpf": "12345678901",
+    "cnpj": "123"
+}
+
+### Cadastrar fornecedor 2
+POST {{baseUrl}}/fornecedor 
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Ana",
+    "cpf": "12345678901",
+    "cnpj": "123"
+}
+
+### Consultar fornecedor
+GET {{baseUrl}}/fornecedor/buscar/oliver
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Atualizar fornecedor 
+PUT {{baseUrl}}/fornecedor/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Oliver Atualizado",
+    "cpf": "12345678901",
+    "cnpj": "123"
+}
+
+### Apagar fornecedor 
+DELETE {{baseUrl}}/fornecedor/3
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Cadastrar produto
+POST {{baseUrl}}/produto
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "descricao": "Maquiagens",
+    "categoria": "Beleza",
+    "quantidadeEstoque": "20",
+    "codigoLote": "123",
+    "idFornecedor": 9
+}
+
+### Atualizar produto
+PUT {{baseUrl}}/produto/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "descricao": "Maquiagens atualizado",
+    "categoria": "Beleza",
+    "quantidadeEstoque": "20",
+    "codigoLote": "123",
+    "idFornecedor": 4
+}
+
+### Cadastrar movimento
+POST {{baseUrl}}/movimento
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "tipoMovimentacao": "ENTRADA",
+    "quantidadeMovimentada": 10,
+    "data": "2026-10-20",
+    "idProduto": 1
+}
+
+### Listar movimento
+GET {{baseUrl}}/movimentos
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
